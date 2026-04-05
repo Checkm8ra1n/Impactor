@@ -31,11 +31,11 @@
   <launchable type="desktop-id">dev.khcrysalis.PlumeImpactor.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/claration/Impactor/efs/heads/main/package/linux/screenshots/dark.png</image>
+      <image>https://raw.githubusercontent.com/claration/Impactor/refs/heads/main/package/linux/screenshots/dark.png</image>
       <caption>Screenshot of Impactor after importing an app.</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/claration/Impactor/efs/heads/main/package/linux/screenshots/light.png</image>
+      <image>https://raw.githubusercontent.com/claration/Impactor/refs/heads/main/package/linux/screenshots/light.png</image>
       <caption>Screenshot of Impactor after importing an app, in light mode.</caption>
     </screenshot>
   </screenshots>
