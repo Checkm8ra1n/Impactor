@@ -36,6 +36,7 @@ impl StatusMessage {
     }
 }
 
+#[allow(unused)]
 #[derive(Debug, Clone)]
 pub enum Message {
     RefreshApps(bool),
@@ -79,7 +80,7 @@ impl UtilitiesScreen {
 
     pub fn update(&mut self, message: Message) -> Task<Message> {
         match message {
-            Message::RefreshApps(supports_remote_pairing) => {
+            Message::RefreshApps(_) => {
                 self.loading = true;
                 self.status_message = None;
                 self.app_statuses.clear();
@@ -95,7 +96,7 @@ impl UtilitiesScreen {
                         let rt = tokio::runtime::Runtime::new().unwrap();
                         let result = rt.block_on(async move {
                             device
-                                .installed_apps(supports_remote_pairing)
+                                .installed_apps()
                                 .await
                                 .map_err(|e| format!("Failed to load apps: {}", e))
                         });

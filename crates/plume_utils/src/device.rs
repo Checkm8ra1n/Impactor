@@ -69,10 +69,7 @@ impl Device {
         Ok(get_dict_string!(values, "DeviceName"))
     }
 
-    pub async fn installed_apps(
-        &self,
-        supports_remote_pairing: bool,
-    ) -> Result<Vec<SignerAppReal>, Error> {
+    pub async fn installed_apps(&self) -> Result<Vec<SignerAppReal>, Error> {
         let device = match &self.usbmuxd_device {
             Some(dev) => dev,
             None => return Err(Error::Other("Device is not connected via USB".to_string())),
@@ -95,13 +92,7 @@ impl Device {
                 app_name.as_deref(),
             );
 
-            let should_include = if supports_remote_pairing {
-                signer_app.app.supports_rsd()
-            } else {
-                signer_app.app.supports_pairing_file_alt()
-            };
-
-            if should_include
+            if signer_app.app.supports_pairing_file_alt()
                 && !found_apps
                     .iter()
                     .any(|a: &SignerAppReal| a.bundle_id == signer_app.bundle_id)
