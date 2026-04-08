@@ -24,6 +24,7 @@ reqwest = { version = "0.13", default-features = false, features = [
     "rustls",
     "gzip",
 ] }
+
 regex = "1.11"
 base64 = "0.22"
 hex = "0.4.3"
@@ -49,6 +50,12 @@ omnisette = { git = "https://github.com/PlumeImpactor/omnisette", rev = "c5c4cf2
     "remote-anisette-v3",
 ] }
 srp = "0.7.0-rc.1"
+
+# There is a bug in rustls-platform-verifier that causes an invalid certificate error with apple's root cert.
+# It has been fixed already but I am waiting for a new release before I can update the dependency.
+# Using native-tls avoids the issue.
+[target.'cfg(windows)'.dependencies]
+reqwest = { version = "0.13", features = ["json", "gzip", "native-tls"] }
 
 [features]
 default = []
