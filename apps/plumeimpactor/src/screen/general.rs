@@ -7,6 +7,8 @@ use std::sync::OnceLock;
 
 const INSTALL_IMAGE: &[u8] = include_bytes!("./general.png");
 const INSTALL_IMAGE_HEIGHT: f32 = 130.0;
+const GITHUB_URL: &str = "https://github.com/claration/Impactor";
+const DONATE_URL: &str = "https://github.com/sponsors/claration";
 
 #[derive(Debug, Clone)]
 pub enum Message {
@@ -18,6 +20,7 @@ pub enum Message {
     NavigateToInstaller(plume_utils::Package),
     NavigateToUtilities,
     OpenGitHub,
+    OpenDonate,
 }
 
 #[derive(Debug, Clone, Default)]
@@ -64,7 +67,11 @@ impl GeneralScreen {
                 Task::none()
             }
             Message::OpenGitHub => {
-                let _ = open::that("https://github.com/khcrysalis/PlumeImpactor");
+                let _ = open::that(GITHUB_URL);
+                Task::none()
+            }
+            Message::OpenDonate => {
+                let _ = open::that(DONATE_URL);
                 Task::none()
             }
             _ => Task::none(),
@@ -86,13 +93,22 @@ impl GeneralScreen {
         .spacing(10)
         .align_x(Center);
 
-        let footer_links = button(appearance::icon_text(
-            appearance::STAR,
-            "Star us on GitHub!",
-            Some(Color::from_rgb(1.0, 0.75, 0.8)),
-        ))
-        .on_press(Message::OpenGitHub)
-        .style(iced::widget::button::text);
+        let footer_links = row![
+            button(appearance::icon_text(
+                appearance::STAR,
+                "Star us on GitHub!",
+                Some(Color::from_rgb(1.0, 0.75, 0.8)),
+            ))
+            .on_press(Message::OpenGitHub)
+            .style(iced::widget::button::text),
+            button(appearance::icon_text(
+                appearance::STAR,
+                "Donate!",
+                Some(Color::from_rgb(1.0, 0.75, 0.8)),
+            ))
+            .on_press(Message::OpenDonate)
+            .style(iced::widget::button::text)
+        ];
 
         column![
             container(screen_content).center(Fill).height(Fill),
